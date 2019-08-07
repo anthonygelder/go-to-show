@@ -1,0 +1,16 @@
+/* function getEvents(city, zip) {
+    let apiUrl = ``;
+    if (zip == '') {
+        
+        apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=CTzeAwSDWbUNHqIaEVP90VJry8rUWbOZ&city=${city}`;
+    } else if ( city == '') {
+        console.log("here");
+        apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=CTzeAwSDWbUNHqIaEVP90VJry8rUWbOZ&postalCode=${zip}`;
+    } 
+    console.log(apiUrl);
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(responseJson => processData(responseJson));
+        // .then(responseJson => console.log(responseJson));
+    
+} */
