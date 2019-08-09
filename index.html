@@ -13,16 +13,20 @@
         <section>
             <h1>Go To Show?</h1>
             <form>
-                <label for="city">City
-                    <input type="text" name="city" id="city-search">
+                <label for="city">City:
+                    <input type="text" name="city" id="city-search" required>
                 </label>
-                <!-- <label for="zip-code">Zip Code
-                    <input type="text" name="zip-code" id="zip-search">
-                </label> -->
-                    <input type="submit" value="Go!">
+                <br>
+                <label for="date">Date:
+                    <input type="date" name="date" id="date-search">
+                </label>
+                <br>
+                <input type="submit" value="Go!">
             </form>
         </section>
-        <section id="results"></section>
+        <table id="results">
+
+        </table>
     </main>
     <script src="main.js"></script>
 </body>
