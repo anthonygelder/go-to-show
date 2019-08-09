@@ -7,26 +7,27 @@
     <link rel="stylesheet" href="style.css">
     <title>Go To Show</title>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
         <section>
-            <h1>Go To Show?</h1>
+            <h1>GO TO SHOW?</h1>
             <form>
-                <label for="city">City:
-                    <input type="text" name="city" id="city-search" required>
-                </label>
-                <br>
-                <label for="date">Date:
-                    <input type="date" name="date" id="date-search">
-                </label>
-                <br>
+                <div id="error"></div>
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city-search" required>
+                
+                
+                <label for="date">Date:</label>
+                <input type="date" name="date" id="date-search">
                 <input type="submit" value="Go!">
             </form>
-        </section>
-        <table id="results">
 
-        </table>
+            <table id="results">
+
+            </table>
+        </section>
     </main>
     <script src="main.js"></script>
 </body>

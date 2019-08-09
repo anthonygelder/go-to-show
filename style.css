@@ -1,16 +1,59 @@
-/* function getEvents(city, zip) {
-    let apiUrl = ``;
-    if (zip == '') {
-        
-        apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=CTzeAwSDWbUNHqIaEVP90VJry8rUWbOZ&city=${city}`;
-    } else if ( city == '') {
-        console.log("here");
-        apiUrl = `https://app.ticketmaster.com/discovery/v2/events?apikey=CTzeAwSDWbUNHqIaEVP90VJry8rUWbOZ&postalCode=${zip}`;
-    } 
-    console.log(apiUrl);
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(responseJson => processData(responseJson));
-        // .then(responseJson => console.log(responseJson));
-    
-} */
+@font-face {
+    font-family: Header;
+    src: url(fonts/HomemadeHamburgers.ttf);
+}
+@font-face {
+    font-family: Palash;
+    src: url(fonts/Palash-Regular.ttf);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(img/back.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    background-color: rgba(0,0,0,0.6);
+    background-attachment: fixed;
+    height: 92vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: Header;
+    font-size: 4em;
+    color: white;
+    align-self: center;
+}
+
+label {
+    font-family: 'Lato', sans-serif;
+    color: white;
+    font-size: 2em;
+}
+
+input {
+    width: 100px;
+    height: 30px;
+    /* padding: 10px; */
+    border-radius: 5px;
+}
+
+td, th, a {
+    color: white;
+}

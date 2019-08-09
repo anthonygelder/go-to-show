@@ -1,11 +1,15 @@
 function generateHTML(obj) {
     const city = obj.location.city;
-    
- 
+
+    const lat = `${obj.location.lat}`;
+    const lng = `${obj.location.lng}`;
+    const mapPoint =`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+
     return `
         <tr>
-            <td>${obj.performance[0].displayName} ${convertTime(obj.start.time)}</td>
-            <td>${obj.venue.displayName}</td>
+            <td><a href="${obj.uri}" target="_blank">${obj.performance[0].displayName}</a></td>
+            <td><a href="${mapPoint}" target="_blank">${obj.venue.displayName}</td>
+            <td>${convertTime(obj.start.time)}</td>
             <td>${city.substring(0, city.length - 8)}</td>
         </tr>
     `
@@ -16,6 +20,7 @@ function generateTableHeader() {
     <tr>
         <th>Artist</th>
         <th>Venue</th>
+        <th>Time</th>
         <th>Location</th>
     </tr>
     `
@@ -42,30 +47,24 @@ function convertTime(time) {
     }
 }
 
-
 function processData(responseData) {
-
     const showDataHtml = responseData.resultsPage.results.event.map(function(obj) {
         return generateHTML(obj);
     }).join('');
 
-    console.log(responseData.resultsPage.results.event)
     $('#results').html(showDataHtml);
     $('#results').prepend(generateTableHeader());
 
 }
 
 function getCurrentDate() {
-
     const newDate = new Date();
-    
     const formatDate = newDate.toISOString().substring(0, 10);
-    
     return formatDate;
 }
 
+
 function getEvents(id, date) {
-    
     if (date === '') {
         date = getCurrentDate();
         const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
@@ -75,7 +74,7 @@ function getEvents(id, date) {
 
     fetch(apiUrl)
         .then(response => response.json())
-        .then(responseJson => processData(responseJson));
+        .then(responseJson => processData(responseJson))
 }
 
 
@@ -84,7 +83,15 @@ function getCityId(city, date) {
 
     fetch(apiUrl)
         .then(response => response.json())
-        .then(responseJson => getEvents(responseJson.resultsPage.results.location[0].metroArea.id, date));
+        .then(responseJson => {
+            if (responseJson.status === 'error') {
+                throw new Error(responseJson.message)
+            }
+            getEvents(responseJson.resultsPage.results.location[0].metroArea.id, date)
+        })
+        .catch(error => {
+            $('#error').text(`Something went wrong.`);
+        });
 }
 
 
@@ -99,5 +106,3 @@ function main() {
 }
 
 $(main)
-
-// ekgXaC6NfwJzIke8BGqob64gLjr4Wl
