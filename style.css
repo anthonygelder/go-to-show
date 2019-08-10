@@ -57,3 +57,13 @@ input {
 td, th, a {
     color: white;
 }
+
+#map {
+    height: 75%;
+    width: 50%;
+}
+
+#mapResults {
+    display: flex;
+    flex-direction: row;
+}

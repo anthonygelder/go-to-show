@@ -1,14 +1,18 @@
+let map;
+
 function generateHTML(obj) {
     const city = obj.location.city;
 
-    const lat = `${obj.location.lat}`;
-    const lng = `${obj.location.lng}`;
-    const mapPoint =`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+    const lat = obj.location.lat;
+    const lng = obj.location.lng;
+
+    map.setCenter({lat: lat, lng: lng});
+    new google.maps.Marker({position: {lat: lat,lng: lng}, map: map}); 
 
     return `
         <tr>
             <td><a href="${obj.uri}" target="_blank">${obj.performance[0].displayName}</a></td>
-            <td><a href="${mapPoint}" target="_blank">${obj.venue.displayName}</td>
+            <td><a href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" target="_blank">${obj.venue.displayName}</td>
             <td>${convertTime(obj.start.time)}</td>
             <td>${city.substring(0, city.length - 8)}</td>
         </tr>
@@ -103,6 +107,13 @@ function main() {
         getCurrentDate();
         getCityId(city, date);
     })
+}
+
+function initMap() {
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 9
+  });
 }
 
 $(main)
