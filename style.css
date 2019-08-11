@@ -26,18 +26,19 @@ body {
 }
 
 #mainSection {
-    background-color: rgba(0,0,0,0.6);    background-attachment: fixed;
-    height: 100%;
-    width: 90vw;
+    background-color: rgba(0,0,0,0.6);    
+    /* height: 100%; */
+    width: 92vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 15px;
+    border: solid 1px white;
 }
 
 h1 {
     font-family: Header;
-    font-size: 4em;
+    font-size: 3em;
     color: white;
     align-self: center;
 }
@@ -45,11 +46,11 @@ h1 {
 label {
     font-family: 'Lato', sans-serif;
     color: white;
-    font-size: 2em;
+    font-size: 18px;
 }
 
 input[type="text"], input[type="date"] {
-    width: 25%;
+    width: 22%;
     height: 30px;
     border-radius: 5px;
     border: none;
@@ -92,18 +93,20 @@ form {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 95%;
+    margin-left: 5px;
 }
 
 th {
     font-family: Header;
-    font-size: 2em;
+    font-size: 18px;
     text-decoration: underline;
 }
 
 a {
     text-decoration: none;
     font-family: 'Lato', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 a:hover {
@@ -118,9 +121,24 @@ a:hover {
 #resultsSection {
     display: flex;
     flex-direction: row;
-    height: 70vh;
-    width: 70vw;
+    width: 85vw;
+    background-color: rgba(0,0,0,0.6);    
 } 
+
+table#results td:nth-child(4) {
+    display: none;
+}
+
+table#results th:nth-child(4) {
+    display: none;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(77, 76, 76, 0.6);    
+}
+
+
+
 
 @media only screen and (min-width: 768px) {
     #map { 
