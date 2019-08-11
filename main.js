@@ -22,10 +22,10 @@ function generateHTML(obj) {
 function generateTableHeader() {
     return `
     <tr>
-        <th>Artist</th>
-        <th>Venue</th>
-        <th>Time</th>
-        <th>Location</th>
+        <th align="left">Artist</th>
+        <th align="left">Venue</th>
+        <th align="left">Time</th>
+        <th align="left">Location</th>
     </tr>
     `
 }
@@ -94,7 +94,7 @@ function getCityId(city, date) {
             getEvents(responseJson.resultsPage.results.location[0].metroArea.id, date)
         })
         .catch(error => {
-            $('#error').text(`Something went wrong.`);
+            $('#error').text(`Invalid City`);
         });
 }
 
