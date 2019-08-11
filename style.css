@@ -86,7 +86,7 @@ td, th, a {
 #map {
     height: 75%;
     width: 50%;
-    display: none;
+    /* display: none; */
 }
 
 form {
