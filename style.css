@@ -76,7 +76,6 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: darkslategrey;
     font-weight: 800;
-
 }
 
 td, th, a {
@@ -84,9 +83,9 @@ td, th, a {
 }
 
 #map {
-    height: 75%;
-    width: 50%;
-    /* display: none; */
+    height: 100%;
+    width: 100%;
+    display: none;
 }
 
 form {
@@ -116,9 +115,16 @@ a:hover {
     font-weight: 800;
 }
 
-/* #resultsSection {
+#resultsSection {
     display: flex;
-    /* flex-direction: row; */
-    height: 92vh;
-    width: 90vw;
-} */
+    flex-direction: row;
+    height: 70vh;
+    width: 70vw;
+} 
+
+@media only screen and (min-width: 768px) {
+    #map { 
+        display: flex;
+    }
+
+}

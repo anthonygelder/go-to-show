@@ -110,7 +110,7 @@ function main() {
 }
 
 function initMap() {
-
+    console.log('map function')
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
     backgroundColor: 'transparent'
