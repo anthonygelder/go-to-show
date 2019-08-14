@@ -5,9 +5,11 @@ function generateHTML(obj) {
 
     const lat = obj.location.lat;
     const lng = obj.location.lng;
-
+    console.log(`${lat} ${lng}`); 
     map.setCenter({lat: lat, lng: lng});
-    new google.maps.Marker({position: {lat: lat,lng: lng}, map: map}); 
+    new google.maps.Marker({position: {lat: lat,lng: lng}, map: map},
+        console.log('map marker')); 
+        
 
     return `
         <tr>
@@ -25,7 +27,7 @@ function generateTableHeader() {
         <th align="left">Artist</th>
         <th align="left">Venue</th>
         <th align="left">Time</th>
-        <th align="left">Location</th>
+        <th align="left">City</th>
     </tr>
     `
 }
@@ -67,15 +69,25 @@ function getCurrentDate() {
     return formatDate;
 }
 
+function convertDate(date) {
+    let day = date.substring(8);
+    let month = date.substring(5, 7);
+    let year = date.substring(2,4);
+    let newDate = `${month}/${day}/${year}`;
+    return newDate;
+}
+
 
 function getEvents(id, date) {
     if (date === '') {
         date = getCurrentDate();
+        $('p').html('Tonight?');
         const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
     }
 
     const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
-
+    let newDate = convertDate(date);
+    $('p').html(`On ${newDate}?`);
     fetch(apiUrl)
         .then(response => response.json())
         .then(responseJson => processData(responseJson))
@@ -110,10 +122,10 @@ function main() {
 }
 
 function initMap() {
-    console.log('map function')
+    console.log('init map function')
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
-    backgroundColor: 'transparent'
+    backgroundColor: 'white'
   });
 }
 
