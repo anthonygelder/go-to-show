@@ -125,7 +125,7 @@ function initMap() {
     console.log('init map function')
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
-    backgroundColor: 'white'
+    backgroundColor: 'transparent'
   });
 }
 
