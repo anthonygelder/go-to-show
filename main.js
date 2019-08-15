@@ -22,9 +22,7 @@ function generateHTML(obj) {
 
 function addMarker(lat, lng) {
     new google.maps.Marker({position: {lat: lat,lng: lng}, map: map})
-
 }
-
 
 function generateTableHeader() {
     return `
@@ -40,7 +38,6 @@ function generateTableHeader() {
 function urlStr(str) {
     return str.replace(/ /g,"+");
 }
-  
 
 function convertTime(time) {
     if (time === null) {
@@ -87,7 +84,6 @@ function convertDate(date) {
     return newDate;
 }
 
-
 function getEvents(id, date) {
     if (date === '') {
         date = getCurrentDate();
@@ -98,11 +94,11 @@ function getEvents(id, date) {
     const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
     let newDate = convertDate(date);
     $('p').html(`On ${newDate}?`);
+    
     fetch(apiUrl)
         .then(response => response.json())
         .then(responseJson => processData(responseJson))
 }
-
 
 function getCityId(city, date) {
     const apiUrl = `https://api.songkick.com/api/3.0/search/locations.json?query=${city}&apikey=lKGlBIRmnawI3yka`;
@@ -120,7 +116,6 @@ function getCityId(city, date) {
         });
 }
 
-
 function main() {
     $('form').on('submit', function(event) {
         event.preventDefault();
@@ -137,49 +132,5 @@ function initMap() {
     backgroundColor: 'transparent'
   });
 }
-
-
-// var regIcon = {
-//     url: "https://maps.google.com/mapfiles/ms/micons/blue.png",
-//     scaledSize: new google.maps.Size(32, 32)
-//   };
-//   var largeIcon = {
-//     url: "https://maps.google.com/mapfiles/ms/micons/blue.png",
-//     scaledSize: new google.maps.Size(48, 48)
-//   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 $(main)
