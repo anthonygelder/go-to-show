@@ -5,21 +5,25 @@ function generateHTML(obj) {
 
     const lat = obj.location.lat;
     const lng = obj.location.lng;
-    console.log(`${lat} ${lng}`); 
     map.setCenter({lat: lat, lng: lng});
-    new google.maps.Marker({position: {lat: lat,lng: lng}, map: map},
-        console.log('map marker')); 
+    addMarker(lat, lng);
+    const mapsUrl = urlStr(obj.venue.displayName); 
         
 
     return `
         <tr>
             <td><a href="${obj.uri}" target="_blank">${obj.performance[0].displayName}</a></td>
-            <td><a href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" target="_blank">${obj.venue.displayName}</td>
+            <td><a href="https://www.google.com/maps/search/?api=1&query=${mapsUrl}" target="_blank">${obj.venue.displayName}</td>
             <td>${convertTime(obj.start.time)}</td>
             <td>${city.substring(0, city.length - 8)}</td>
         </tr>
     `
 }
+
+function addMarker(lat, lng) {
+    new google.maps.Marker({position: {lat: lat,lng: lng}, map: map})
+}
+
 
 function generateTableHeader() {
     return `
@@ -30,6 +34,10 @@ function generateTableHeader() {
         <th align="left">City</th>
     </tr>
     `
+}
+
+function urlStr(str) {
+    return str.replace(/ /g,"+");
 }
 
 function convertTime(time) {
@@ -88,6 +96,7 @@ function getEvents(id, date) {
     const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
     let newDate = convertDate(date);
     $('p').html(`On ${newDate}?`);
+    
     fetch(apiUrl)
         .then(response => response.json())
         .then(responseJson => processData(responseJson))
@@ -122,8 +131,7 @@ function main() {
 }
 
 function initMap() {
-    console.log('init map function')
-  map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
     backgroundColor: 'transparent'
   });
