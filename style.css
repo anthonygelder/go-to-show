@@ -206,7 +206,6 @@ tr:nth-child(even) {
     table#results td:nth-child(4),
     table#results th:nth-child(4) {
         display: block;
-
     }   
 
     #resultsSection {
