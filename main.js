@@ -14,7 +14,7 @@ function generateHTML(obj) {
         <tr>
             <td><a href="${obj.uri}" target="_blank">${obj.performance[0].displayName}</a></td>
             <td><a href="https://www.google.com/maps/search/?api=1&query=${mapsUrl}" target="_blank">${obj.venue.displayName}</td>
-            <td>${convertTime(obj.start.time)}</td>
+            <td valign="top">${convertTime(obj.start.time)}</td>
             <td>${city.substring(0, city.length - 8)}</td>
         </tr>
     `
@@ -178,7 +178,7 @@ function main() {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 9,
+    zoom: 11,
     backgroundColor: 'transparent',
     styles: [
         {
