@@ -72,32 +72,82 @@ function processData(responseData) {
 
 function getCurrentDate() {
     const newDate = new Date();
-    const formatDate = newDate.toISOString().substring(0, 10);
+    const dateString = newDate.toString();
+    const day = dateString.substring(8, 10);
+    const month = dateString.substring(4, 7);
+    const year = dateString.substring(11, 15);
+    const formatDate = `${year}-${convertMonth(month)}-${day}`;
+    
     return formatDate;
+}
+
+function convertMonth(month) {
+    switch (month) {
+        case "Jan":
+            month = "01";
+            break;
+        case "Feb":
+            month = "02";
+            break;
+        case "Mar":
+            month = "03";
+            break;
+        case "Apr":
+            month = "04";
+            break;
+        case "May":
+            month = "05";
+            break;
+        case "June":
+            month = "06";
+            break;
+        case "July":
+            month = "07";
+            break;
+        case "Aug":
+            month = "08";
+            break;
+        case "Sept":
+            month = "09";
+            break;
+        case "Oct":
+            month = "10";
+            break;
+        case "Nov":
+            month = "11";
+            break;
+        case "Dec":
+            month = "12";
+        }
+    return month;
 }
 
 function convertDate(date) {
     let day = date.substring(8);
     let month = date.substring(5, 7);
     let year = date.substring(2,4);
-    let newDate = `${month}/${day}/${year}`;
+    let newDate = `${month} /${day} /${year}`;
     return newDate;
 }
 
 function getEvents(id, date) {
     if (date === '') {
-        date = getCurrentDate();
+    const newDate = getCurrentDate();
         $('p').html('Tonight?');
-        const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
-    }
+        const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${newDate}&max_date=${newDate}`;
 
-    const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
-    let newDate = convertDate(date);
-    $('p').html(`On ${newDate}?`);
-    
-    fetch(apiUrl)
+        fetch(apiUrl)
         .then(response => response.json())
         .then(responseJson => processData(responseJson))
+    } else {
+        const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
+        let newDate = convertDate(date);
+        $('p').html(`On ${newDate}?`);
+        
+        fetch(apiUrl)
+        .then(response => response.json())
+        .then(responseJson => processData(responseJson))
+    }
 }
 
 function getCityId(city, date) {
@@ -129,7 +179,173 @@ function main() {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    styles: [
+        {
+            "elementType": "geometry",
+            "stylers": [{"color": "#212121"}]
+        },
+        {
+            "elementType": "labels.icon",
+            "stylers": [{"visibility": "off"}]
+        },
+        {
+            "elementType": "labels.text.fill",
+            "stylers": [{"color": "#757575"}]
+        },
+        {
+            "elementType": "labels.text.stroke",
+            "stylers": [{"color": "#212121"}]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "geometry",
+            "stylers": [{"color": "#757575"}]
+        },
+        {
+            "featureType": "administrative.country",
+            "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#9e9e9e"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.locality",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#bdbdbd"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#757575"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#181818"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#616161"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+            {
+              "color": "#1b1b1b"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#2c2c2c"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#8a8a8a"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#373737"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#3c3c3c"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway.controlled_access",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#4e4e4e"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#616161"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#757575"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#000000"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#3d3d3d"
+            }
+          ]
+        }
+      ]
   });
 }
 

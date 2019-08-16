@@ -133,7 +133,19 @@ table#results th:nth-child(4) {
 }
 
 tr:nth-child(even) {
-    background-color: rgba(77, 76, 76, 0.6);    
+    background-color: rgba(77, 76, 76, 0.6);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(104, 104, 104); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: lime; 
 }
 
 @media only screen and (min-width: 768px) {
