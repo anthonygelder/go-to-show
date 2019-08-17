@@ -72,6 +72,69 @@ function getCurrentDate() {
     return formatDate;
 }
 
+
+
+function convertDate(date) {
+    let day = date.substring(8);
+    let month = date.substring(5, 7);
+    let year = date.substring(2,4);
+    let newDate = `${month} /${day} /${year}`;
+    return newDate;
+}
+
+function getEvents(id, date) {
+    $('#error').empty();
+    if (date === getCurrentDate()) {
+        $('p').html('Tonight?');
+    } else {
+        let newDate = convertDate(date);
+        $('p').html(`On ${newDate}?`);
+    }
+    const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
+    
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(responseJson => processData(responseJson))
+}
+
+function getCityId(city, date) {
+    const apiUrl = `https://api.songkick.com/api/3.0/search/locations.json?query=${city}&apikey=lKGlBIRmnawI3yka`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(responseJson => {
+            if (responseJson.status === 'error') {
+                throw new Error(responseJson.message)
+            }
+            getEvents(responseJson.resultsPage.results.location[0].metroArea.id, date)
+        })
+        .catch(error => {
+            $('#map').hide();
+            $('#error').text(`Invalid City`);
+        });
+}
+
+function main() {
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+        $('#results').empty();
+        $('#map').hide();
+        const city = $(event.currentTarget).find('#city-search').val();
+        let date = $(event.currentTarget).find('#date-search').val();
+        if (date === '') {
+            date = getCurrentDate();
+            $('p').html('Tonight?');
+        }
+        if (date < getCurrentDate()) {
+            $('#map').hide();
+            $('#error').text(`Invalid Date`);
+        } else {
+            $('#map').show();
+            getCityId(city, date);
+        }
+    })
+}
+
 function convertMonth(month) {
     switch (month) {
         case "Jan":
@@ -111,60 +174,6 @@ function convertMonth(month) {
             month = "12";
         }
     return month;
-}
-
-function convertDate(date) {
-    let day = date.substring(8);
-    let month = date.substring(5, 7);
-    let year = date.substring(2,4);
-    let newDate = `${month} /${day} /${year}`;
-    return newDate;
-}
-
-function getEvents(id, date) {
-    if (date === '') {
-    const newDate = getCurrentDate();
-        $('p').html('Tonight?');
-        const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${newDate}&max_date=${newDate}`;
-
-        fetch(apiUrl)
-        .then(response => response.json())
-        .then(responseJson => processData(responseJson))
-    } else {
-        const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
-        let newDate = convertDate(date);
-        $('p').html(`On ${newDate}?`);
-        
-        fetch(apiUrl)
-        .then(response => response.json())
-        .then(responseJson => processData(responseJson))
-    }
-}
-
-function getCityId(city, date) {
-    const apiUrl = `https://api.songkick.com/api/3.0/search/locations.json?query=${city}&apikey=lKGlBIRmnawI3yka`;
-
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(responseJson => {
-            if (responseJson.status === 'error') {
-                throw new Error(responseJson.message)
-            }
-            getEvents(responseJson.resultsPage.results.location[0].metroArea.id, date)
-        })
-        .catch(error => {
-            $('#error').text(`Invalid City`);
-        });
-}
-
-function main() {
-    $('form').on('submit', function(event) {
-        event.preventDefault();
-        const city = $(event.currentTarget).find('#city-search').val();
-        const date = $(event.currentTarget).find('#date-search').val();
-        getCurrentDate();
-        getCityId(city, date);
-    })
 }
 
 function initMap() {

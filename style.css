@@ -115,8 +115,15 @@ a:hover {
 }
 
 #error {
-    color: white;
+    color: rgb(255, 123, 71);
     font-weight: 800;
+    margin-left: 0 auto;
+    font-size: 2em;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
 }
 
 #resultsSection {
@@ -126,6 +133,10 @@ a:hover {
     background-color: rgba(0,0,0,0.6);
     margin-bottom: 15px;
 } 
+
+table {
+    width: 85vw;
+}
 
 table#results td:nth-child(4),
 table#results th:nth-child(4) {
@@ -183,7 +194,7 @@ tr:nth-child(even) {
     }
 
     table {
-        width: 100%;
+        width: 70%;
     }
 
     th {
@@ -191,7 +202,7 @@ tr:nth-child(even) {
     }
 
     a {
-        font-size: 25px;
+        font-size: 20px;
     }
 
     #map { 
@@ -211,7 +222,6 @@ tr:nth-child(even) {
     #resultsSection {
         height: 100%;
         width: 100%;
-        /* border: solid 2px lime; */
         justify-content: space-evenly;         
         align-items: center;
         align-content: stretch;
