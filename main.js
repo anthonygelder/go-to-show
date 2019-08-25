@@ -85,10 +85,10 @@ function convertDate(date) {
 function getEvents(id, date) {
     $('#error').empty();
     if (date === getCurrentDate()) {
-        $('p').html('Tonight?');
+        $('p').html('Tonight');
     } else {
         let newDate = convertDate(date);
-        $('p').html(`On ${newDate}?`);
+        $('p').html(`On ${newDate}`);
     }
     const apiUrl = `https://api.songkick.com/api/3.0/metro_areas/${id}/calendar.json?apikey=lKGlBIRmnawI3yka&min_date=${date}&max_date=${date}`;
     
@@ -110,7 +110,7 @@ function getCityId(city, date) {
         })
         .catch(error => {
             $('#map').hide();
-            $('#error').text(`Invalid City`);
+            $('#error').text(`Invalid City.`);
         });
 }
 
@@ -123,11 +123,11 @@ function main() {
         let date = $(event.currentTarget).find('#date-search').val();
         if (date === '') {
             date = getCurrentDate();
-            $('p').html('Tonight?');
+            $('p').html('Tonight');
         }
         if (date < getCurrentDate()) {
             $('#map').hide();
-            $('#error').text(`Invalid Date`);
+            $('#error').text(`Date cannot be in the past.`);
         } else {
             $('#map').show();
             getCityId(city, date);
