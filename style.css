@@ -90,6 +90,11 @@ td, th, a {
     display: flex;
 }
 
+li > a {
+    color: black;
+    font-size: 18px;
+}
+
 form {
     display: flex;
     flex-direction: row;
