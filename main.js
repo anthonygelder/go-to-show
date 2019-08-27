@@ -152,7 +152,7 @@ function getCityId(city, date) {
         })
         .catch(error => {
             $('#map').hide();
-            $('#error').text(`Invalid City.`);
+            $('#error').text(`Something went wrong. Try again.`);
         });
 }
 
