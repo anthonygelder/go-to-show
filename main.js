@@ -1,5 +1,6 @@
 let map;
 
+// Generating table data
 function generateHTML(obj) {
     const city = obj.location.city;
 
@@ -22,6 +23,7 @@ function generateHTML(obj) {
     `
 }
 
+// Adding markers on the map
 function addMarker(obj, url) {
     const contentString = `
         <ul>
@@ -44,6 +46,7 @@ function addMarker(obj, url) {
     });
 }
 
+// Generating table header, as the function name implies
 function generateTableHeader() {
     return `
     <tr>
@@ -55,10 +58,12 @@ function generateTableHeader() {
     `
 }
 
+// Converting string to url string
 function urlStr(str) {
     return str.replace(/ /g,"+");
 }
 
+// Converting milittary time to standard time.
 function convertTime(time) {
     if (time === null) {
         return 'N/A'
@@ -78,6 +83,7 @@ function convertTime(time) {
     }
 }
 
+// Processing data that was recieved from API call
 function processData(responseData) {
     const showDataHtml = responseData.resultsPage.results.event.map(function(obj) {
         return generateHTML(obj);
@@ -87,6 +93,7 @@ function processData(responseData) {
     $('#results').prepend(generateTableHeader());
 }
 
+// Getting current date, like the function name implies
 function getCurrentDate() {
     const newDate = new Date();
     const dateString = newDate.toString();
@@ -98,7 +105,7 @@ function getCurrentDate() {
 }
 
 
-
+// Converting to readable date format
 function convertDate(date) {
     let day = date.substring(8);
     let month = date.substring(5, 7);
@@ -120,7 +127,15 @@ function getEvents(id, date) {
     
     fetch(apiUrl)
     .then(response => response.json())
-    .then(responseJson => processData(responseJson))
+    .then(responseJson => {
+        if (responseJson.status === 'error') {
+            throw new Error(responseJson.message)
+        }
+        processData(responseJson)
+    })
+    .catch(error => {
+        $('#error').text(`Something went wrong. Try again.`);
+    })
 }
 
 // Getting City ID to use it to search events. 
@@ -141,6 +156,7 @@ function getCityId(city, date) {
         });
 }
 
+// Main function
 function main() {
     $('form').on('submit', function(event) {
         event.preventDefault();
@@ -162,6 +178,7 @@ function main() {
     })
 }
 
+// Converting string month to number
 function convertMonth(month) {
     switch (month) {
         case "Jan":
@@ -203,6 +220,7 @@ function convertMonth(month) {
     return month;
 }
 
+// Initilizing Map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,

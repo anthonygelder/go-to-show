@@ -229,7 +229,7 @@ tr:nth-child(even) {
 
     table#results td:nth-child(4),
     table#results th:nth-child(4) {
-        display: block;
+        display: none;
     }   
 
     #resultsSection {
@@ -246,4 +246,11 @@ tr:nth-child(even) {
         width: 45%;
         overflow: auto;
     }
+}
+
+@media only screen and (min-width: 770px) {
+    table#results td:nth-child(4),
+    table#results th:nth-child(4) {
+        display: block;
+    }   
 }
