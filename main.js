@@ -134,6 +134,7 @@ function getEvents(id, date) {
         processData(responseJson)
     })
     .catch(error => {
+        $('#map').hide();
         $('#error').text(`Something went wrong. Try again.`);
     })
 }
@@ -147,11 +148,11 @@ function getCityId(city, date) {
         .then(responseJson => {
             if (responseJson.status === 'error') {
                 throw new Error(responseJson.message)
+                $('#map').hide();
             }
             getEvents(responseJson.resultsPage.results.location[0].metroArea.id, date)
         })
         .catch(error => {
-            $('#map').hide();
             $('#error').text(`Something went wrong. Try again.`);
         });
 }
