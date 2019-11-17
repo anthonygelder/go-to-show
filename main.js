@@ -46,7 +46,7 @@ function addMarker(obj, url) {
     });
 }
 
-// Generating table header, as the function name implies
+// Generating table header
 function generateTableHeader() {
     return `
     <tr>
@@ -93,7 +93,7 @@ function processData(responseData) {
     $('#results').prepend(generateTableHeader());
 }
 
-// Getting current date, like the function name implies
+// Getting current date
 function getCurrentDate() {
     const newDate = new Date();
     const dateString = newDate.toString();
